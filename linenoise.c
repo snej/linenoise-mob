@@ -1089,7 +1089,7 @@ static int linenoiseEdit(int stdin_fd, int stdout_fd, char *buf, size_t buflen, 
         case ESC:    /* escape sequence */
             if (read(l.ifd,seq,1) == -1) break;
             /* ESC ? sequences */
-            if (seq[0] != '[' && seq[0] != '0') {
+            if (seq[0] != '[' && seq[0] != 'O') {
                 switch (seq[0]) {
                 case 'f':
                     linenoiseEditMoveWordEnd(&l);
