@@ -397,6 +397,7 @@ failed:
 
 /* Get the length of the string ignoring escape-sequences */
 // TODO merge with columnPos
+#if 0
 static int strlenPerceived(const char* str) {
 	int len = 0;
 	if (str) {
@@ -418,6 +419,7 @@ static int strlenPerceived(const char* str) {
 	}
 	return len;
 }
+#endif
 
 /* Clear the screen. Used to handle ctrl+l */
 void linenoiseClearScreen(void) {
