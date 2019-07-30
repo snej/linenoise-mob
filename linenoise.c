@@ -213,8 +213,9 @@ static size_t defaultNextCharLen(const char *buf, size_t buf_len, size_t pos, si
 
 /* Read bytes of the next character */
 static size_t defaultReadCode(int fd, char *buf, size_t buf_len, int* c) {
+    int nread;
     if (buf_len < 1) return -1;
-    int nread = read(fd,&buf[0],1);
+    nread = read(fd,&buf[0],1);
     if (nread == 1) *c = buf[0];
     return nread;
 }
@@ -1460,7 +1461,8 @@ int linenoiseHistoryLoad(const char *filename) {
  * it must already be allocated to have at least destlen spaces.
  * The size of the history is returned. */
 int linenoiseHistoryCopy(char** dest, int destlen) {
-    for(int i = 0; i < destlen; ++i) {
+    int i;
+    for(i = 0; i < destlen; ++i) {
         if (i >= history_len) break;
         dest[i] = strdup(history[i]);
     }
