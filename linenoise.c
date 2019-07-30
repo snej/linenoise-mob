@@ -1155,6 +1155,18 @@ static int linenoiseEdit(int stdin_fd, int stdout_fd, char *buf, size_t buflen, 
                 /* ESC O sequences. */
                 else if (seq[0] == 'O') {
                     switch(seq[1]) {
+                    case 'A': /* Up */
+                        linenoiseEditHistoryNext(&l, LINENOISE_HISTORY_PREV);
+                        break;
+                    case 'B': /* Down */
+                        linenoiseEditHistoryNext(&l, LINENOISE_HISTORY_NEXT);
+                        break;
+                    case 'C': /* Right */
+                        linenoiseEditMoveRight(&l);
+                        break;
+                    case 'D': /* Left */
+                        linenoiseEditMoveLeft(&l);
+                        break;
                     case 'H': /* Home */
                         linenoiseEditMoveHome(&l);
                         break;
