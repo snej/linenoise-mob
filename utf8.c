@@ -476,12 +476,12 @@ size_t linenoiseUtf8NextCharLen(const char* buf, size_t buf_len, size_t pos, siz
 /* Get length of previous grapheme
  */
 size_t linenoiseUtf8PrevCharLen(const char* buf, size_t buf_len, size_t pos, size_t *col_len) {
-    UNUSED(buf_len);
     size_t end = pos;
+    UNUSED(buf_len);
     while (pos > 0) {
         size_t len = prevUtf8CharLen(buf, pos);
-        pos -= len;
         int cp;
+        pos -= len;
         utf8BytesToCodePoint(buf + pos, len, &cp);
         if (!isCombiningChar(cp)) {
             if (col_len != NULL) *col_len = isWideChar(cp) ? 2 : 1;
@@ -495,11 +495,13 @@ size_t linenoiseUtf8PrevCharLen(const char* buf, size_t buf_len, size_t pos, siz
 /* Read a Unicode from file.
  */
 size_t linenoiseUtf8ReadCode(int fd, char* buf, size_t buf_len, int* cp) {
+    size_t nread;
+    unsigned char byte;
     if (buf_len < 1) return -1;
-    size_t nread = read(fd,&buf[0],1);
+    nread = read(fd,&buf[0],1);
     if (nread <= 0) return nread;
 
-    unsigned char byte = buf[0];
+    byte = buf[0];
     if ((byte & 0x80) == 0) {
         ;
     } else if ((byte & 0xE0) == 0xC0) {

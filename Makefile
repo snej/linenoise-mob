@@ -1,4 +1,7 @@
 PREFIX = /usr/local
+LIBDIR = $(PREFIX)/lib
+INCDIR = $(PREFIX)/include
+MANDIR = $(PREFIX)/share/man
 CC = cc
 CFLAGS = -Os -Wall -Wextra
 
@@ -20,12 +23,12 @@ example: example.o $(LIB)
 	$(CC) $(CFLAGS) -c $<
 
 install: $(LIB) $(INC) $(MAN)
-	mkdir -p $(DESTDIR)$(PREFIX)/lib
-	cp $(LIB) $(DESTDIR)$(PREFIX)/lib/$(LIB)
-	mkdir -p $(DESTDIR)$(PREFIX)/include
-	cp -t $(DESTDIR)$(PREFIX)/include $(INC)
-	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man3
-	cp $(MAN) $(DESTDIR)$(PREFIX)/share/man/man3/$(MAN)
+	mkdir -p $(DESTDIR)$(LIBDIR)
+	cp $(LIB) $(DESTDIR)$(LIBDIR)/$(LIB)
+	mkdir -p $(DESTDIR)$(INCDIR)
+	cp -t $(DESTDIR)$(INCDIR) $(INC)
+	mkdir -p $(DESTDIR)$(MANDIR)/man3
+	cp $(MAN) $(DESTDIR)$(MANDIR)/man3/$(MAN)
 
 lib: linenoise.h linenoise.c
 	$(CC) -Wall -W -Os -o linenoise.o linenoise.c encodings/utf8.c
