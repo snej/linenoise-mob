@@ -8,13 +8,17 @@ CFLAGS = -Os -Wall -Wextra
 SRC = linenoise.c utf8.c
 OBJ = $(SRC:.c=.o)
 LIB = liblinenoise.a
+SLIB = liblinenoise.so
 INC = linenoise.h utf8.h
 MAN = linenoise.3
 
-all: $(LIB) example
+all: $(LIB) $(SLIB) example
 
 $(LIB): $(OBJ)
 	$(AR) -rcs $@ $(OBJ)
+
+$(SLIB): $(OBJ)
+	$(CC) -shared $(OBJ) -o $@
 
 example: example.o $(LIB)
 	$(CC) -o $@ example.o $(LIB)
@@ -24,7 +28,7 @@ example: example.o $(LIB)
 
 install: $(LIB) $(INC) $(MAN)
 	mkdir -p $(DESTDIR)$(LIBDIR)
-	cp $(LIB) $(DESTDIR)$(LIBDIR)/$(LIB)
+	cp $(LIB) $(SLIB) $(DESTDIR)$(LIBDIR)
 	mkdir -p $(DESTDIR)$(INCDIR)
 	cp -t $(DESTDIR)$(INCDIR) $(INC)
 	mkdir -p $(DESTDIR)$(MANDIR)/man3
