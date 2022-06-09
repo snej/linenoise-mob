@@ -156,6 +156,7 @@ static unsigned long wideCharTable[][2] = {     /* list in ascending order */
     { 0x1F950, 0x1F95E },
     { 0x1F980, 0x1F991 },
     { 0x1F9C0, 0x1F9C0 },
+    { 0x1FAB4, 0x1FAB4 }, // jpa: Added potted plant
     { 0x20000, 0x2FFFD },
     { 0x30000, 0x3FFFD },
 };
